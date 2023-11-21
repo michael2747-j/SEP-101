@@ -1,4 +1,4 @@
-
+#pragma once
 // LibraryConfig.h
 
 #ifndef LIBRARY_CONFIG_H
