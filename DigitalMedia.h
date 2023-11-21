@@ -13,7 +13,8 @@ struct DigitalMedia {
 	char format[MAX_FORMAT_LEN];
 	float fileSize;
 	char accessLink[MAX_LINK_LEN];
-	int downloadCount ;
+	int downloadCount;
 
 
 };
+
