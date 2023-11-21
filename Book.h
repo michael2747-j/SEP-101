@@ -12,7 +12,7 @@ struct CommonBookAttributes {
 	char genre[MAX_GENRE_LEN];
 	int yearOfPublication;
 	char publisher[MAX_PUBLISHER_LEN];
-	int isbn[MAX_ISBN_LEN];
+	char isbn[MAX_ISBN_LEN];
 
 };
 
@@ -40,6 +40,8 @@ struct EBook {
 };
 
 void initializeBook(struct Book* book);
+
+
 
 
 
