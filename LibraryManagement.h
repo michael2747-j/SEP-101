@@ -34,7 +34,7 @@ void displayDigitalMedia(const struct Library* lib);
 void printBookPublicationHistogram(const struct Library* lib);
 
 // Function to initialize a book to a default state
-
+void initializzeBook(struct Book* book);
 
 
 
