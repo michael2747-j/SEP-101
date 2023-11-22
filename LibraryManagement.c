@@ -1,4 +1,21 @@
 
+///////////////////////////////////////////////////////////////////////////
+// File Name: Libarary Management System
+// Group Number:  4
+// Group Members Names : MICHAEL MELLES (111838223),
+// Group Members Seneca Email : mmellese@myseneca.ca, ssnijjer@myseneca.ca, zahmed79@myseneca.ca, ayush1@myseneca.ca
+// Date : 21/11 2023
+// Authenticity Declaration :
+// We declare this submission is the result of our group work and has not been
+// shared with any other groups/students or 3rd party content provider.This submitted
+// piece of work is entirely of my own creation.
+//////////////////////////////
+
+
+
+
+
+
 #define _CRT_SECURE_NO_WARNINGS
 #include "LibraryManagement.h"
 #include "LibraryConfig.h"
@@ -8,23 +25,23 @@
 
 // Function to initialize a library structure with default values
 void initializeBook(struct Book* book) {
-   
+
     book->commonAttributes.id = 0;
-   
+
 }
 
 // Function to initialize an EBook structure to default values
 void initializeEBook(struct EBook* ebook) {
-    
+
     ebook->commonAttributes.id = 0;
-    
+
 }
 
 // Function to initialize a DigitalMedia structure to default values
 void initializeDigitalMedia(struct DigitalMedia* digitalMedia) {
     // Example: Set default values for digital media attributes
     digitalMedia->id = 0;
-    // Set default values for other attributes...
+    
 }
 
 struct Library initializeLibrary() {
@@ -58,7 +75,7 @@ struct Library initializeLibrary() {
     return newLibrary;
 }
 
-void loadBooks(struct Library* lib, const char* filename) {
+void loadBooks(struct Library* lib, const char* filename) {  // Function to load books from text file
     // Step 1: Opening the File
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
@@ -69,8 +86,8 @@ void loadBooks(struct Library* lib, const char* filename) {
 
     // Step 2: Reading from the File
     char line[2048];
-    while (fgets(line, sizeof(line), file) != NULL) {
-        // Step 3: Parsing the Line
+    while (fgets(line, sizeof(line), file) != NULL) {   
+        // Step 3: Parsing the Line using appropriate format
         struct Book tempBook;
         int result = sscanf(line, "%d;%50[^;];%50[^;];%50[^;];%d;%50[^;];%50[^;];%d;%50[^;];%d;%10[^;];",
             &tempBook.commonAttributes.id,
@@ -92,14 +109,14 @@ void loadBooks(struct Library* lib, const char* filename) {
             break;
         }
 
-        // Step 5: Adding to the Library
+        // Step 5: Adding to the Library after a line is succesfully read
         if (result == 11) {
             // Successfully parsed all fields
             if (lib->bookCount < MAX_BOOK_COUNT) {
                 lib->books[lib->bookCount++] = tempBook;
             }
             else {
-                // Warning: Too many books
+                // Warning: Too many books if too many books are encountered
                 fprintf(stderr, "Warning: Maximum number of books reached\n");
                 break;
             }
@@ -114,8 +131,7 @@ void loadBooks(struct Library* lib, const char* filename) {
     fclose(file);
 }
 
-void loadEbooks(struct Library* lib, const char* filename) {
-    // Step 1: Opening the File
+void loadEbooks(struct Library* lib, const char* filename) { // Function to load Ebooks from text file
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
         // File opening failed
@@ -169,7 +185,7 @@ void loadEbooks(struct Library* lib, const char* filename) {
 }
 
 
-void loadDigitalMedia(struct Library* lib, const char* filename) {
+void loadDigitalMedia(struct Library* lib, const char* filename) { // Fucntion to load Digital Media for a text file
     // Step 1: Opening the File
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
@@ -223,7 +239,7 @@ void loadDigitalMedia(struct Library* lib, const char* filename) {
     fclose(file);
 }
 
-void displayBooks(const struct Library* lib) {
+void displayBooks(const struct Library* lib) {   // Function for displaying books
     // Step 1: Initialization and Error Checking
     if (lib == NULL || lib->books == NULL || lib->bookCount == 0) {
         // Invalid library or no books to display
@@ -233,12 +249,12 @@ void displayBooks(const struct Library* lib) {
 
     // Step 2: Header Printing
     printf("------- BOOKS -------\n");
-    printf("%-4s  %-30s  %-25s  %-15s  %-4s  %-20s  %-17s  %-6s  %-10s  %-6s\n",
-        "ID", "Title", "Author", "Genre", "Year", "Publisher", "ISBN", "Page No", "Condition", "Copies  Shelf");
+    printf("%-5s  %-25s  %-17s  %-15s  %-4s  %-25s  %-25s  %-15s\n",
+        "ID", "Title", "Author", "Genre", "Year", "Publisher", "ISBN", "Shelf");
 
 
     // Step 3: Separator Line
-    printf("----------------------------------------------------------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     // Step 4: Content Display
     int numBooksToDisplay = lib->bookCount < 10 ? lib->bookCount : 10;
@@ -259,7 +275,7 @@ void displayBooks(const struct Library* lib) {
         truncatedPublisher[sizeof(truncatedPublisher) - 1] = '\0';
 
         // Step 5.2: Printing Book Details
-        printf("%-4d  %-30s  %-25s  %-15s  %-4d  %-20s  %-17s  %-6d  %-10s  %-6d  %-4s\n",
+        printf("%d  %-25s  %-20s  %-15s  %-4d  %-25s  %-26s  %-5s",
             lib->books[i].commonAttributes.id,
             truncatedTitle,
             truncatedAuthor,
@@ -267,14 +283,11 @@ void displayBooks(const struct Library* lib) {
             lib->books[i].commonAttributes.yearOfPublication,
             truncatedPublisher,
             lib->books[i].commonAttributes.isbn,
-            lib->books[i].numberOfPages,
-            lib->books[i].condition,
-            lib->books[i].numberOfCopies,
             lib->books[i].shelfLocation);
     }
 }
 
-void displayEbooks(const struct Library* lib, int flag) {
+void displayEbooks(const struct Library* lib, int flag) {  // Fucntion for displaying E books
     // Step 1: Error Checking
     if (lib == NULL || lib->ebooks == NULL || lib->ebookCount == 0) {
         // Invalid library or no ebooks to display
@@ -299,14 +312,14 @@ void displayEbooks(const struct Library* lib, int flag) {
         endIdx = lib->ebookCount;
     }
     //Step 3 : Print Header
-    printf("------- %s 5 EBOOKS -------\n", displayType);
+    printf("\n------- %s 5 EBOOKS -------\n", displayType);
     // Step 4: Printing the Table Header
-    printf("%-5s  %-30s  %-20s  %-15s  %-5s  %-30s  %-20s  %-13s %-5s\n",
+    printf("%-5s  %-30s  %-20s  %-15s  %-4s  %-25s  %-14s  %-14s %-9s\n",
         "ID", "Title", "Author", "Genre", "Year", "Publisher", "ISBN", "Access Link", "Downloads");
 
 
     // Step 5: Separator Line
-    printf("----------------------------------------------------------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     // Step 6: Looping Through and Printing Ebooks
     for (int i = startIdx; i < endIdx; ++i) {
@@ -324,7 +337,7 @@ void displayEbooks(const struct Library* lib, int flag) {
         truncatedAccessLink[sizeof(truncatedAccessLink) - 1] = '\0';
 
         // Step 6.2: Printing Ebook Details
-        printf("%-5d  %-30s  %-20s  %-15s  %-5d  %-30s  %-20s  %-13s  %-5d\n",
+        printf("%-5d  %-30s  %-20s  %-15s  %-4d  %-25s  %-14s  %-14.14s  %-9d\n",
             lib->ebooks[i].commonAttributes.id,
             truncatedTitle,
             truncatedAuthor,
@@ -337,7 +350,7 @@ void displayEbooks(const struct Library* lib, int flag) {
     }
 }
 
-void displayDigitalMedia(const struct Library* lib, int flag) {
+void displayDigitalMedia(const struct Library* lib, int flag) { // Fucntion for dipslaying Digital Media
     // Step 1: Validate Input
     if (lib == NULL || lib->digitalMedias == NULL || lib->digitalMediaCount == 0) {
         // Invalid library or no digital media items to display
@@ -378,12 +391,13 @@ void displayDigitalMedia(const struct Library* lib, int flag) {
     }
 
     // Step 3: Print Header
-    printf("------- %s 5 DIGITAL MEDIA ITEMS -------\n", displayType);
-    printf("%-3s %-20s %-15s %-10s %-5s %-6s %-20s %-25s %-10s\n",
-        "ID", "Title", "Creator", "Genre", "Year", "Format", "File Size", " Access Link", "Downloads");
+    printf("\n\n------- %s 5 DIGITAL MEDIA ITEMS -------\n", displayType);
+
+    printf("%-4s %-36s %-20s %-15s %-8s %-10s %-14s %-20s %-9s\n",
+        "ID", "Title", "Creator", "Genre", "Year", "Format", "FileSize", " Access Link", "Downloads");
 
     // Step 4: Print Separator Line
-    printf("---------------------------------------------------------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 
     // Step 5: Iterate and Print Items
     for (int i = startIdx; i < endIdx; ++i) {
@@ -401,7 +415,7 @@ void displayDigitalMedia(const struct Library* lib, int flag) {
         truncatedAccessLink[sizeof(truncatedAccessLink) - 1] = '\0';
 
         // Step 5.2: Printing Digital Media Details
-        printf("%-5d  %-30.29s  %-20.19s  %-10.9s  %-15d  %-10s  %-5.2f MB  %-25s  %-10d\n",
+        printf("%-4d  %-36s  %-17s  %-14s  %-7d  %-9s  %-10.2f  %-26.14s  %-9d\n",
             lib->digitalMedias[i].id,
             truncatedTitle,
             truncatedCreator,
@@ -411,13 +425,14 @@ void displayDigitalMedia(const struct Library* lib, int flag) {
             lib->digitalMedias[i].fileSize,
             truncatedAccessLink,
             lib->digitalMedias[i].downloadCount);
+       
     }
 }
 
 
 
 
-void printBookPublicationHistogram(const struct Library* lib) {
+void printBookPublicationHistogram(const struct Library* lib) {  //Function to display the Historgram
     // Error checking
     if (lib == NULL || lib->books == NULL) {
         printf("Invalid library or no books available.\n");
@@ -438,7 +453,7 @@ void printBookPublicationHistogram(const struct Library* lib) {
     }
 
     // Print the histogram
-    printf("Book Publication Histogram:\n");
+    printf("\n\n\n Book Publication Histogram:\n");
     for (int i = 0; i < NUM_YEARS; ++i) {
         if (bookYearCounts[i] > 0) {
             // Print the year
