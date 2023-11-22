@@ -1,0 +1,194 @@
+REFLECTION
+
+
+
+1: Michael Melles (Book Class)
+Explanation:
+
+ I created a BookClass that acts as a wrapper around the Book structure. The class encapsulates the details of a physical book and provides methods to set book details and display them. This approach follows the principles of encapsulation, as the internal representation of a book is hidden from external users. The class also includes proper header guards to prevent multiple inclusions.
+
+cpp
+Copy code
+// BookClass.h (Michael Melles)
+
+#ifndef BOOK_CLASS_H
+#define BOOK_CLASS_H
+
+#include "Book.h"
+
+class BookClass {
+public:
+    BookClass();
+    ~BookClass();
+
+    void setBookDetails(int id, const char* title, const char* author, const char* genre, int yearOfPublication,
+                        const char* publisher, const char* isbn, int numberOfPages, const char* condition,
+                        int numberOfCopies, const char* shelfLocation);
+    void displayBookDetails();
+
+private:
+    Book book;
+};
+
+#endif // BOOK_CLASS_H
+
+ 2: Zundyad Ahmed (EBook Class)
+Explanation:
+
+I designed an EBookClass that mirrors the structure of an EBook. Similar to the BookClass, it encapsulates the details of an eBook and provides methods to set eBook details and display them. This demonstrates a consistent and modular approach, where each media type has its corresponding class for managing operations.
+
+cpp
+Copy code
+// EBookClass.h (Zundyad Ahmed)
+
+#ifndef EBOOK_CLASS_H
+#define EBOOK_CLASS_H
+
+#include "EBook.h"
+
+class EBookClass {
+public:
+    EBookClass();
+    ~EBookClass();
+
+    void setEBookDetails(int id, const char* title, const char* author, const char* genre, int yearOfPublication,
+                         const char* publisher, const char* isbn, const char* accessLink, int downloadCount);
+    void displayEBookDetails();
+
+private:
+    EBook ebook;
+};
+
+#endif // EBOOK_CLASS_H
+
+
+ 3: Shehbaz Nijjer (DigitalMedia Class)
+Explanation:
+
+I implemented a DigitalMediaClass for managing digital media items. The class includes methods for setting digital media details, playing media, updating download counts, and changing access links. The design adheres to the specific functionalities related to digital media, showcasing a clear understanding of the unique attributes and operations associated with this type of library item.
+
+
+ DigitalMediaClass.h (Shehbaz Nijjer)
+
+#ifndef DIGITALMEDIA_CLASS_H
+#define DIGITALMEDIA_CLASS_H
+
+#include "DigitalMedia.h"
+
+class DigitalMediaClass {
+public:
+    DigitalMediaClass();
+    ~DigitalMediaClass();
+
+    void setDigitalMediaDetails(int id, const char* title, const char* creator, const char* genre, int yearOfRelease,
+                                const char* format, int fileSize, const char* accessLink, int downloadCount);
+    void playMedia();
+    void updateDownloadCount();
+    void changeAccessLink(const char* newLink);
+
+private:
+    DigitalMedia digitalMedia;
+};
+
+#endif // DIGITALMEDIA_CLASS_H
+
+
+
+
+
+
+Student 4: Ayush (Library Class)
+Explanation:
+
+I created a LibraryClass that encapsulates the library's functionality. It includes methods for initializing the library, adding different types of media (books, eBooks, digital media), searching the inventory, and generating reports. The class mirrors the structure of the Library structure, and its methods provide a high-level interface for managing library operations.
+
+cpp
+Copy code
+// LibraryClass.h (Ayush)
+
+#ifndef LIBRARY_CLASS_H
+#define LIBRARY_CLASS_H
+
+#include "LibraryManagement.h"
+
+class LibraryClass {
+public:
+    LibraryClass();
+    ~LibraryClass();
+
+    void initializeLibrary();
+    void addBook(const Book& book);
+    void addEBook(const EBook& ebook);
+    void addDigitalMedia(const DigitalMedia& digitalMedia);
+    void searchInventory(const char* searchQuery);
+    void generateReports();
+
+private:
+    Library library;
+};
+
+#endif // LIBRARY_CLASS_H
+
+
+
+
+
+
+ 5: LibraryManagement Interface (Michael / Shehbaz)
+Explanation:
+
+This section was a proposed interface ILibraryManagement that declares common operations such as adding, removing, searching, and listing inventory. The interface defines a contract that will be implemented by different media classes (Book, EBook, DigitalMedia). This demonstrates a solid understanding of the concept of interfaces and how they can be used to achieve polymorphism in a library management system.
+
+cpp
+Copy code
+// ILibraryManagement.h (Unassigned)
+// This section was not attributed to a specific student.
+#ifndef ILIBRARYMANAGEMENT_H
+#define ILIBRARYMANAGEMENT_H
+
+class ILibraryManagement {
+public:
+    virtual ~ILibraryManagement() {}
+
+    virtual void addItem() = 0;
+    virtual void removeItem() = 0;
+    virtual void searchInventory() = 0;
+    virtual void listInventory() = 0;
+};
+
+#endif // ILIBRARYMANAGEMENT_H
+
+
+
+Student 6: LibraryAnalytics Class (Zunyad/Ayush)
+Explanation:
+
+In this implementation, an unassigned student introduced a LibraryAnalyticsClass that is focused on generating statistical reports for the library. While the exact data structure to store analytics data is left undefined, the class includes methods for generating reports such as popular books, peak usage times, and average reading times. This demonstrates a forward-thinking approach to incorporating analytics into the library management system.
+
+cpp
+Copy code
+// LibraryAnalyticsClass.h (Unassigned)
+// This section was not attributed to a specific student.
+#ifndef LIBRARY_ANALYTICS_CLASS_H
+#define LIBRARY_ANALYTICS_CLASS_H
+
+#include <vector>
+
+class LibraryAnalyticsClass {
+public:
+    LibraryAnalyticsClass();
+    ~LibraryAnalyticsClass();
+
+    void generatePopularBooksReport(const std::vector<Book>& books);
+    void generatePeakUsageTimesReport();
+    void generateAverageReadingTimesReport(const std::vector<EBook>& ebooks);
+
+private:
+    // Include a suitable data structure to
+
+
+
+
+
+
+
