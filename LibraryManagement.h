@@ -1,7 +1,9 @@
+
 #pragma once
 
 
-#ifndef LIBRARYMANAGEMENT_H
+                                   //A header file in C for a library management system. 
+#ifndef LIBRARYMANAGEMENT_H       //It includes definitions for the structure of a library and function prototypes for managing library operations.
 #define LIBRARYMANAGEMENT_H
 
 #include <stdio.h>
@@ -11,8 +13,8 @@
 #include "Book.h"
 #include "DigitalMedia.h"
 
-struct Library {
-    struct Book books[MAX_BOOK_COUNT];
+struct Library {                       //The Library structure serves as the central record-keeping entity for managing collections of books, ebooks, and digital media. 
+    struct Book books[MAX_BOOK_COUNT]; //It represents the entirety of a library's catalog and provides a top-level view of all assets.
     struct EBook ebooks[MAX_EBOOK_COUNT];
     struct DigitalMedia digitalMedias[MAX_DIGITAL_MEDIA_COUNT];
     int bookCount;
@@ -23,7 +25,7 @@ struct Library {
 };
 
 
-// Function prototypes
+// Function prototypes for fucntions that will be used throughout the system.
 struct Library initializeLibrary();
 void loadBooks(struct Library* lib, const char* filename);
 void loadEbooks(struct Library* lib, const char* filename);
@@ -34,9 +36,5 @@ void displayDigitalMedia(const struct Library* lib);
 void printBookPublicationHistogram(const struct Library* lib);
 
 // Function to initialize a book to a default state
-void initializzeBook(struct Book* book);
+void initializeBook(struct Book* book);
 
-
-
-
-#endif
