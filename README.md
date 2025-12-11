@@ -1,21 +1,11 @@
-# **Week8Table – Rebalancing Pattern (Components & Uses)**
+| **Section** | **Content** |
+|------------|-------------|
+| **Extracted Question** | *“Write the **RebalancedModel** class (pseudo-code is allowed) based on the provided Dataset, Rebalancer, and BaseModel classes. Also explain what this design pattern is attempting to do.”* |
+| **Pattern Purpose** | The Rebalancing Pattern ensures ML models train on **balanced datasets**, preventing bias toward majority classes. A RebalancedModel wraps a base model and automatically applies a Rebalancer before training, producing fairer and more reliable predictions. |
+| **Why This Pattern Is Used** | • Avoids majority-class bias by training on equalized class distributions. <br> • Keeps data-balancing logic **separate** from model logic (clean architecture). <br> • Makes models reusable and consistent across different datasets with varying imbalance levels. |
+| **RebalancedModel Responsibilities** | The RebalancedModel extends BaseModel and contains a Rebalancer and a BaseModel. On `train()`, it rebalances the dataset then calls the base model’s training logic; on `predict()`, it delegates to the base model. |
+| **Dataset Class** | Stores original features and labels; calculates number of classes. Provides getters: `get_data()`, `get_labels()`, `get_num_classes()`. |
+| **Rebalancer Class** | Encapsulates oversampling/undersampling logic. Its method `rebalance(dataset)` returns a **new balanced Dataset**. |
+| **BaseModel Class** | Abstract ML model interface defining: `train()`, `predict()`, and optionally `evaluate()`. Used as the model being wrapped. |
+| **Summary (Exam Sentence)** | *“RebalancedModel wraps a base model with a Rebalancer so training uses a rebalanced dataset, improving fairness and performance on minority classes without modifying the core model.”* |
 
-## **Rebalancing Pattern – Components**
-
-| Component | Short Description |
-|-----------|-------------------|
-| **Dataset** | Stores the original data, labels, and number of classes. Acts as the source structure before rebalancing. |
-| **Rebalancer** | Performs the rebalancing operation (e.g., oversampling, undersampling, weighting). Provides access to rebalanced data and labels through helper methods. |
-| **BaseModel** | Generic machine learning model with core operations like train(), predict(), and evaluate(). Serves as a reusable foundation for model logic. |
-| **RebalancedModel** | Extends BaseModel by integrating a Rebalancer. Uses rebalanced data for training, prediction, and evaluation, ensuring the model learns from a corrected distribution. |
-
----
-
-## **Rebalancing Pattern – Common Usage**
-
-| Domain | How Rebalancing Helps |
-|--------|------------------------|
-| **Fraud Detection** | Fraud cases are rare; rebalancing increases representation of fraudulent examples so models don't ignore them and can detect fraud accurately. |
-| **Medical Diagnosis** | Rare diseases have few samples; rebalancing prevents the model from favoring the majority (healthy) class and improves detection of rare conditions. |
-| **Anomaly Detection** | Outliers occur infrequently; rebalancing ensures the model learns to recognize abnormal patterns rather than defaulting to normal predictions. |
-| **Credit Risk Assessment** | Default events are scarce; rebalancing helps models correctly identify potential defaulters rather than always predicting “no default.” |
