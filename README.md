@@ -1,10 +1,21 @@
-# **Week8Table – Embeddings Applications**
+# **Week8Table – Rebalancing Pattern (Components & Uses)**
 
-| Application Area | Short Description |
-|------------------|-------------------|
-| **NLP** | Embeddings represent words or sentences as dense vectors capturing meaning and context, enabling tasks like text classification, sentiment analysis, NER, translation, and document similarity. They allow models to understand semantic relationships rather than raw text. |
-| **Recommender Systems** | User and item embeddings encode preferences and item attributes from interaction history, allowing the system to find similar users/items and produce personalized recommendations based on vector similarity. |
-| **Image & Video Processing** | CNN-based embeddings represent visual content in numerical form, supporting classification, detection, retrieval, and video understanding. They capture spatial or temporal patterns needed for visual tasks. |
-| **Anomaly Detection** | Embeddings learn the structure of normal data so deviations appear as anomalies. Useful in fraud detection, intrusion detection, and general outlier spotting where unusual patterns stand out in vector space. |
-| **Knowledge Graphs** | Entities and relationships are converted into vectors, enabling efficient similarity checks and supporting tasks like entity linking, link prediction, and graph-based recommendations. |
-| **Sequence Modeling** | Embeddings capture context and dependencies within sequences such as text, audio, or time series, enabling tasks like translation, speech recognition, and sequence generation. |
+## **Rebalancing Pattern – Components**
+
+| Component | Short Description |
+|-----------|-------------------|
+| **Dataset** | Stores the original data, labels, and number of classes. Acts as the source structure before rebalancing. |
+| **Rebalancer** | Performs the rebalancing operation (e.g., oversampling, undersampling, weighting). Provides access to rebalanced data and labels through helper methods. |
+| **BaseModel** | Generic machine learning model with core operations like train(), predict(), and evaluate(). Serves as a reusable foundation for model logic. |
+| **RebalancedModel** | Extends BaseModel by integrating a Rebalancer. Uses rebalanced data for training, prediction, and evaluation, ensuring the model learns from a corrected distribution. |
+
+---
+
+## **Rebalancing Pattern – Common Usage**
+
+| Domain | How Rebalancing Helps |
+|--------|------------------------|
+| **Fraud Detection** | Fraud cases are rare; rebalancing increases representation of fraudulent examples so models don't ignore them and can detect fraud accurately. |
+| **Medical Diagnosis** | Rare diseases have few samples; rebalancing prevents the model from favoring the majority (healthy) class and improves detection of rare conditions. |
+| **Anomaly Detection** | Outliers occur infrequently; rebalancing ensures the model learns to recognize abnormal patterns rather than defaulting to normal predictions. |
+| **Credit Risk Assessment** | Default events are scarce; rebalancing helps models correctly identify potential defaulters rather than always predicting “no default.” |
